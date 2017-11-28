@@ -13,7 +13,7 @@ class Problem(object):
         self.G1ref = np.array([107, 579], 'f')
         self.G24ref = np.array([ 727, 40], 'f')
         self.df = {}
-        self.dirname = os.path.dirname(os.path.realpath(__file__))
+        self.dirname = os.path.dirname(os.path.realpath(__file__)) +"/../Data/"
         self.cost_func_params = {}
         # Theano function
         self.t_xsegs = theano.tensor.vector('xsegs')
@@ -126,18 +126,20 @@ class Problem(object):
         img = plt.imread(filename)
         plt.imshow(img)
     ##################################################################################################
-    def plot_swarm_evolution(self,candidates, savefile = 'swarm_evolution.gif'):
-        def animate(nframe):
+    def plot_swarm_evolution(self,candidates,nframes = 1, savefile = 'swarm_evolution.gif'):
+        def animate(nframe, pars = None):
             plt.cla()
             self.plot_map()
             ax = plt.axis()
             # PLOT BASIC PSO SOLUTION
-            self.plot_solution(candidates[nframe], 'b')
-            plt.text(850, 500, 'Iteration %i'%nframe)
+            iframe = pars[nframe] if pars is not None else nframe
+            self.plot_solution(candidates[iframe], 'b')
+            plt.text(800, 550, 'Iteration %i'%iframe)
             plt.axis(ax);
 
         fig = plt.figure(figsize=(6,8))
-        anim = animation.FuncAnimation(fig, animate, frames=len(candidates))
+        frame_label = range(0,len(candidates), nframes)
+        anim = animation.FuncAnimation(fig, animate, frames=len(candidates[::nframes]), fargs = [frame_label])
         anim.save(savefile, writer='imagemagick', fps=4);
 
     ##################################################################################################
