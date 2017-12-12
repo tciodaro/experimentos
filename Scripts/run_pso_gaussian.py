@@ -8,7 +8,7 @@ import sys
 
 sys.path.insert(0, os.getcwd() + "\\..\\")
 
-from Swarm.Problem_Gaussian import Problem
+from Problems.Problem_Gaussian import Problem
 from Swarm import PSO
 
 ngauss = 20

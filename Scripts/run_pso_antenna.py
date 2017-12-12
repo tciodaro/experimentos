@@ -10,7 +10,8 @@ import multiprocessing as mp
 
 sys.path.append(os.getcwd() + "/../")
 
-from Swarm import Problem_Antenna, PSO
+from Swarm import PSO
+from Problems import Problem_Antenna
 from sklearn.externals import joblib
 
 
