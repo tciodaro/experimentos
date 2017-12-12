@@ -2,8 +2,6 @@
 import numpy as np
 import time
 
-import multiprocessing as mp
-
 """
     Minimizer
 """
@@ -22,7 +20,6 @@ class PSO(object):
         self.swarm_max = -1
         self.swarm_min = -1
         self.speed_lim = -1
-        self.trn_nproc = 2
         if isinstance(args, PSO):
             args = args.__dict__
         self.__set_parameters(args)
@@ -135,21 +132,11 @@ class PSO(object):
         Z = np.array([self.cost_func(cs) for cs in self.swarm])
         Z = Z if Z.ndim == 1 else Z[:,0]
         return Z
-   
-    
-    #def _cost(self):
-    #    pool = mp.Pool(processes = self.trn_nproc)
-    #    processes = [(ics,pool.apply_async(self.cost_func, (cs, args))) \
-    #                 for ics,cs in enumerate(self.swarm)]
-    #    results = np.array([[pr[0], pr[1].get()] for pr in processes])
-    #    idx = np.argsort(results[:,0])
-    #    pool.close()
-    #    return results[idx,1]
     ######################################################################################
     def __set_parameters(self, args):
         argnames = ['nswarm','swarm_dim','epochs','chi','rate_cog',
                     'rate_soc','K','Wup','Wlo','Wstep',
-                    'swarm_max', 'swarm_min', 'speed_lim','trn_nproc']
+                    'swarm_max', 'swarm_min', 'speed_lim',]
         argdefs  = [10, -1, 1000, 0.729, 2.05,
                     2.05, 10, 1.2, 0.1, 100,
                     1,-1,-1, 2]
