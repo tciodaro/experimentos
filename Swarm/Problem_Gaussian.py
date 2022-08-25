@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 from matplotlib import animation
+from scipy import stats
 
 
 class Problem(object):
@@ -29,7 +30,9 @@ class Problem(object):
             A = self.amp[i]
             M = self.avg[i]
             S = self.sigma[i]
-            Z = Z - mlab.bivariate_normal(X[:,0], X[:,1], S[0], S[1], M[0], M[1], 0)
+            # Z = Z - mlab.bivariate_normal(X[:,0], X[:,1], S[0], S[1], M[0], M[1], 0)
+            rv = stats.multivariate_normal([ M[0], M[1]], [[S[0], 0], [0, S[1]]])
+            Z = Z - rv.pdf(np.dstack((X[:,0], X[:,1])))
         return Z
     
     def plot(self, candidates = None, fmt = 'ok', fig = None, colorbar=None):

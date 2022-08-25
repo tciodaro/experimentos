@@ -9,11 +9,11 @@ import os
 import theano
 
 class Problem(object):
-    def __init__(self):
+    def __init__(self, datadir):
         self.G1ref = np.array([107, 579], 'f')
         self.G24ref = np.array([ 727, 40], 'f')
         self.df = {}
-        self.dirname = os.path.dirname(os.path.realpath(__file__))
+        self.dirname = datadir
         self.cost_func_params = {}
         # Theano function
         self.t_xsegs = theano.tensor.vector('xsegs')

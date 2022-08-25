@@ -13,7 +13,7 @@ import numpy as np
 import time
 from sklearn import metrics
 from sklearn import preprocessing
-from sklearn.externals import joblib
+import joblib
 import uuid
 
 
